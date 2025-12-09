@@ -1,0 +1,14 @@
+
+.overdue-row {
+  background: rgba(255, 0, 110, 0.1) !important;
+  border-left: 4px solid var(--neon-pink);
+}
+
+.overdue-row:hover {
+  background: rgba(255, 0, 110, 0.2) !important;
+  box-shadow: inset 0 0 20px rgba(255, 0, 110, 0.2);
+}
+
+.overdue-row td {
+  border-bottom-color: rgba(255, 0, 110, 0.3);
+}

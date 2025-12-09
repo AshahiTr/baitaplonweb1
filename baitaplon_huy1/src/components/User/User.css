@@ -1,0 +1,99 @@
+.user-profile-container,
+.user-history-container {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  animation: fadeIn 0.6s ease;
+}
+
+.profile-card {
+  background: var(--cyber-card);
+  border: 2px solid var(--neon-cyan);
+  padding: 50px;
+  box-shadow: 0 0 40px rgba(0, 255, 249, 0.4);
+  clip-path: polygon(30px 0%, 100% 0%, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0% 100%, 0% 30px);
+}
+
+.profile-card h2 {
+  margin: 0 0 50px 0;
+  color: var(--neon-cyan);
+  text-align: center;
+  font-size: 36px;
+  font-weight: 900;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-shadow: var(--glow-cyan);
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.info-row {
+  display: flex;
+  padding: 20px;
+  border-bottom: 2px solid rgba(0, 255, 249, 0.2);
+  transition: all 0.3s ease;
+  clip-path: polygon(15px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 15px);
+}
+
+.info-row:hover {
+  background: rgba(0, 255, 249, 0.05);
+  transform: translateX(10px);
+  border-bottom-color: var(--neon-pink);
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-row label {
+  font-weight: 800;
+  color: var(--text-secondary);
+  min-width: 200px;
+  font-size: 14px;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.info-row span {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 16px;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.penalty-text {
+  color: var(--neon-pink);
+  font-weight: 900;
+  padding: 10px 20px;
+  background: rgba(255, 0, 110, 0.15);
+  border: 1px solid var(--neon-pink);
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
+  box-shadow: 0 0 15px rgba(255, 0, 110, 0.3);
+  clip-path: polygon(10px 0%, 100% 0%, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0% 100%, 0% 10px);
+}
+
+.normal-text {
+  color: var(--neon-green);
+  font-weight: 700;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.user-history-container h2 {
+  margin-bottom: 30px;
+  color: var(--neon-cyan);
+  font-size: 36px;
+  font-weight: 900;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-shadow: var(--glow-cyan);
+}

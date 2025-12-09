@@ -1,0 +1,83 @@
+.stats-container {
+  padding: 20px;
+  animation: fadeIn 0.6s ease;
+}
+
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.stats-header h2 {
+  color: var(--neon-cyan);
+  margin: 0;
+  font-size: 36px;
+  font-weight: 900;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-shadow: var(--glow-cyan);
+}
+
+.time-selector {
+  display: flex;
+  gap: 12px;
+  background: var(--cyber-card);
+  padding: 8px;
+  border: 2px solid var(--neon-cyan);
+  clip-path: polygon(15px 0%, 100% 0%, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0% 100%, 0% 15px);
+}
+
+.time-btn {
+  padding: 12px 28px;
+  border: 2px solid transparent;
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  clip-path: polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px);
+}
+
+.time-btn:hover {
+  background: rgba(0, 255, 249, 0.1);
+  border-color: var(--neon-cyan);
+}
+
+.time-btn.active {
+  background: var(--neon-cyan);
+  color: var(--cyber-darker);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 20px var(--neon-cyan);
+}
+
+.stats-section {
+  margin-top: 40px;
+  background: var(--cyber-card);
+  border: 2px solid var(--neon-cyan);
+  padding: 35px;
+  box-shadow: 0 0 40px rgba(0, 255, 249, 0.3);
+  animation: slideIn 0.6s ease;
+  clip-path: polygon(25px 0%, 100% 0%, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0% 100%, 0% 25px);
+}
+
+.stats-section h3 {
+  margin: 0 0 30px 0;
+  color: var(--neon-cyan);
+  font-size: 24px;
+  font-weight: 800;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--neon-cyan);
+  text-shadow: 0 0 15px var(--neon-cyan);
+}
