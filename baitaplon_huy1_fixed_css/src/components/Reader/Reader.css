@@ -1,0 +1,16 @@
+.reader-list-container {
+  padding: 20px;
+  animation: fadeIn 0.6s ease;
+}
+
+.status-badge.normal {
+  background: #E8F5E9;
+  color: var(--success);
+  border: 1px solid var(--success);
+}
+
+.status-badge.penalty {
+  background: #FFEBEE;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}

@@ -25,7 +25,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <BackgroundEffects />
       <nav className="navbar">
         <div className="nav-brand">
-          <Link to="/">Horizon Wisdom</Link>
+          <Link to="/">Thư viện số</Link>
         </div>
         <div className="nav-menu">
           {user?.role === 'admin' ? (

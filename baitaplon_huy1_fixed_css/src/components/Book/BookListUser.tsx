@@ -29,7 +29,7 @@ const BookListUser: React.FC = () => {
   return (
     <div className="book-list-container">
       <div className="list-header">
-        <h2>Danh Sách Sách Thư Viện</h2>
+        <h2>Sách Thư Viện</h2>
       </div>
 
       <div className="search-box">

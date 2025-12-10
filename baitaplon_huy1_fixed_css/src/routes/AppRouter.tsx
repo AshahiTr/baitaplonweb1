@@ -31,7 +31,7 @@ const BorrowPage: React.FC = () => {
         className="floating-btn" 
         onClick={() => setShowBorrowForm(true)}
       >
-        + Tạo đơn mượn
+        Tạo đơn
       </button>
       {showBorrowForm && (
         <UserBorrowForm onClose={() => setShowBorrowForm(false)} />

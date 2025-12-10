@@ -89,11 +89,11 @@
 
 .user-history-container h2 {
   margin-bottom: 30px;
-  color: var(--neon-cyan);
-  font-size: 36px;
+  color:#8b4513;
+  font-size: 28px;
   font-weight: 900;
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Playfair Display', serif;
   text-transform: uppercase;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
   text-shadow: var(--glow-cyan);
 }

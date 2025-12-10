@@ -71,11 +71,6 @@ const Login: React.FC = () => {
         <div className="auth-link">
           Chưa có tài khoản? <Link to="/register">Đăng ký ngay</Link>
         </div>
-        <div className="admin-info">
-          <p>Tài khoản admin mặc định:</p>
-          <p>Email: admin@library.com</p>
-          <p>Password: admin123</p>
-        </div>
       </div>
     </div>
   );

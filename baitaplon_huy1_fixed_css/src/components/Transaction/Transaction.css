@@ -1,0 +1,166 @@
+.user-profile-container,
+.user-history-container {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  animation: fadeIn 0.6s ease;
+}
+
+.profile-card {
+  background: var(--white);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--beige);
+}
+
+.profile-card h2 {
+  margin: 0 0 40px 0;
+  color: var(--primary);
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.info-row {
+  display: flex;
+  padding: 20px;
+  border-bottom: 1px solid var(--beige);
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.info-row:hover {
+  background: var(--cream);
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-row label {
+  font-weight: 700;
+  color: var(--text-secondary);
+  min-width: 180px;
+  font-size: 15px;
+}
+
+.info-row span {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.penalty-text {
+  color: var(--danger);
+  font-weight: 700;
+  padding: 8px 16px;
+  background: #FFEBEE;
+  border-radius: 8px;
+  border: 1px solid var(--danger);
+}
+
+.normal-text {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.user-history-container h2 {
+  margin-bottom: 30px;
+  color: var(--primary);
+  font-size: 32px;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+}
+.stat-card {
+  background: var(--white);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  border: 1px solid var(--beige);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-card h3 {
+  font-size: 48px;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  color: var(--primary);
+  font-weight: 800;
+  font-family: 'Playfair Display', serif;
+  min-width: 80px;
+}
+
+.stat-card.danger::before {
+  background: linear-gradient(90deg, var(--danger) 0%, #D97064 100%);
+}
+
+.stat-card.danger h3 {
+  color: var(--danger);
+}
+
+.stat-card p {
+  margin: 0;
+  padding: 0;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.4;
+  text-align: left;
+  flex: 1;
+}
+
+.return-item {
+  padding: 20px;
+  border: 2px solid var(--beige);
+  border-radius: 10px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: var(--cream);
+}
+
+/* Khi đưa chuột vào */
+.return-item:hover {
+  background: var(--white);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Khi đang được chọn */
+.return-item.selected {
+  border-color: var(--primary);
+  background: #FFF7E8;
+  box-shadow: 0 4px 14px rgba(139,69,19,0.18);
+}

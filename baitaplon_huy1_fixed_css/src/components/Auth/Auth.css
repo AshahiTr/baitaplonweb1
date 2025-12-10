@@ -1,0 +1,128 @@
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #F5F1E8 0%, #E8DCC4 100%);
+  padding: 20px;
+  position: relative;
+}
+
+.auth-container::before {
+  content: '📚';
+  position: absolute;
+  font-size: 200px;
+  opacity: 0.05;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.auth-box {
+  background: var(--white);
+  border: 1px solid var(--beige);
+  padding: 50px;
+  border-radius: 15px;
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 450px;
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 0.6s ease;
+}
+
+.auth-box h2 {
+  text-align: center;
+  color: var(--primary);
+  margin-bottom: 35px;
+  font-size: 32px;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid var(--beige);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+  background: var(--cream);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.form-group input::placeholder {
+  color: var(--text-light);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 15px;
+  margin-top: 10px;
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: 25px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.auth-link a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px solid var(--primary);
+  padding-bottom: 2px;
+  transition: all 0.3s ease;
+}
+
+.auth-link a:hover {
+  color: var(--primary-light);
+  border-bottom-color: transparent;
+}
+
+.error-message {
+  background: #FEE;
+  border: 1px solid var(--danger);
+  border-left: 4px solid var(--danger);
+  color: var(--danger);
+  padding: 14px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.success-message {
+  background: #EFE;
+  border: 1px solid var(--success);
+  border-left: 4px solid var(--success);
+  color: var(--success);
+  padding: 14px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  font-weight: 500;
+  font-size: 14px;
+}
