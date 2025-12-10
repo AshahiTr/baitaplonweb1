@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchTransactions, updateTransaction } from '../../redux/transactionsSlice';
 import { fetchBooks, updateBook } from '../../redux/booksSlice';
-import { fetchUsers } from '../../redux/usersSlice';
+import { fetchUsers, updateUser } from '../../redux/usersSlice';
 import './Transaction.css';
 
 interface ReturnFormProps {
@@ -52,6 +52,7 @@ const ReturnForm: React.FC<ReturnFormProps> = ({ onClose }) => {
     const transaction = transactions.find(t => t.id === selectedTransaction);
     if (!transaction) return;
 
+    // Cập nhật transaction
     await dispatch(updateTransaction({
       id: transaction.id,
       updates: {
@@ -60,6 +61,7 @@ const ReturnForm: React.FC<ReturnFormProps> = ({ onClose }) => {
       }
     }));
 
+    // Tăng số lượng sách có sẵn
     const book = books.find(b => b.id === transaction.bookId);
     if (book) {
       await dispatch(updateBook({
@@ -68,7 +70,28 @@ const ReturnForm: React.FC<ReturnFormProps> = ({ onClose }) => {
       }));
     }
 
-    dispatch(fetchTransactions());
+    // Giảm current_borrowing cho bạn đọc
+    const reader = users.find(u => u.id === transaction.readerId);
+    if (reader) {
+      const currentBorrowingCount = transactions.filter(
+        t => t.readerId === transaction.readerId && 
+             t.status !== 'returned' && 
+             t.status !== 'pending' &&
+             t.id !== transaction.id // Loại trừ transaction đang trả
+      ).length;
+      
+      try {
+        await dispatch(updateUser({
+          id: reader.id,
+          updates: { currentBorrowing: currentBorrowingCount }
+        })).unwrap();
+      } catch (error) {
+        console.error('Error updating current_borrowing:', error);
+      }
+    }
+
+    await dispatch(fetchTransactions());
+    await dispatch(fetchUsers());
     alert('Trả sách thành công!');
     onClose();
   };
@@ -108,7 +131,7 @@ const ReturnForm: React.FC<ReturnFormProps> = ({ onClose }) => {
                       {overdueDays > 0 && (
                         <>
                           <br />
-                          <small style={{ color: 'var(--neon-pink)', fontWeight: 'bold' }}>
+                          <small style={{ color: 'var(--danger)', fontWeight: 'bold' }}>
                             ⚠️ Quá hạn {overdueDays} ngày
                           </small>
                         </>

@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchPendingTransactions, updateTransaction, deleteTransaction } from '../../redux/transactionsSlice';
 import { fetchBooks, updateBook } from '../../redux/booksSlice';
-import { fetchUsers } from '../../redux/usersSlice';
+import { fetchUsers, updateUser } from '../../redux/usersSlice';
 import './Transaction.css';
 
 const BorrowRequestList: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { pending, loading, error } = useAppSelector((state) => state.transactions);
+  const { pending, loading, error, transactions } = useAppSelector((state) => state.transactions);
   const { books } = useAppSelector((state) => state.books);
   const { users } = useAppSelector((state) => state.users);
 
@@ -43,7 +43,25 @@ const BorrowRequestList: React.FC = () => {
         return;
       }
 
+      const reader = users.find(u => u.id === transaction.readerId);
+      if (!reader) {
+        alert('Không tìm thấy bạn đọc');
+        return;
+      }
 
+      // Kiểm tra quota trước khi phê duyệt
+      const currentBorrowingCount = transactions.filter(
+        t => t.readerId === transaction.readerId && 
+             t.status !== 'returned' && 
+             t.status !== 'pending'
+      ).length;
+
+      if (currentBorrowingCount >= reader.quota) {
+        alert(`Không thể phê duyệt. Bạn đọc đã mượn tối đa ${reader.quota} quyển sách.`);
+        return;
+      }
+
+      // Cập nhật transaction thành borrowing
       await dispatch(updateTransaction({
         id: transaction.id,
         updates: {
@@ -52,14 +70,25 @@ const BorrowRequestList: React.FC = () => {
         }
       })).unwrap();
 
-
+      // Giảm số lượng sách có sẵn
       await dispatch(updateBook({
         id: transaction.bookId,
         updates: { availableQuantity: book.availableQuantity - 1 }
       })).unwrap();
 
+      // Tăng current_borrowing cho bạn đọc
+      try {
+        await dispatch(updateUser({
+          id: transaction.readerId,
+          updates: { currentBorrowing: currentBorrowingCount + 1 }
+        })).unwrap();
+      } catch (error) {
+        console.error('Error updating current_borrowing:', error);
+      }
 
+      // Reload pending transactions
       await dispatch(fetchPendingTransactions()).unwrap();
+      await dispatch(fetchUsers()).unwrap();
       
       alert('Đã phê duyệt đơn mượn thành công!');
     } catch (err) {

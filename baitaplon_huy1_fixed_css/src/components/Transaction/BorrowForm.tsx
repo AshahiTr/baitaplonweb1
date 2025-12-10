@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { createTransaction, fetchTransactions } from '../../redux/transactionsSlice';
 import { fetchBooks, updateBook } from '../../redux/booksSlice';
-import { fetchUsers } from '../../redux/usersSlice';
+import { fetchUsers, updateUser } from '../../redux/usersSlice';
 import './Transaction.css';
 
 interface BorrowFormProps {
@@ -13,6 +13,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ onClose }) => {
   const dispatch = useAppDispatch();
   const { books } = useAppSelector((state) => state.books);
   const { users } = useAppSelector((state) => state.users);
+  const { transactions } = useAppSelector((state) => state.transactions);
   const [formData, setFormData] = useState({
     readerId: '',
     bookId: '',
@@ -23,6 +24,7 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ onClose }) => {
   useEffect(() => {
     dispatch(fetchBooks());
     dispatch(fetchUsers());
+    dispatch(fetchTransactions());
   }, [dispatch]);
 
   const readers = users.filter(user => user.role === 'reader');
@@ -49,6 +51,23 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ onClose }) => {
       return;
     }
 
+    const reader = users.find(u => u.id === formData.readerId);
+    if (!reader) {
+      alert('Không tìm thấy bạn đọc');
+      return;
+    }
+
+    // Kiểm tra quota
+    const currentBorrowingCount = transactions.filter(
+      t => t.readerId === formData.readerId && t.status !== 'returned' && t.status !== 'pending'
+    ).length;
+
+    if (currentBorrowingCount >= reader.quota) {
+      alert(`Bạn đọc đã mượn tối đa ${reader.quota} quyển sách. Vui lòng trả sách trước khi mượn thêm.`);
+      return;
+    }
+
+    // Tạo transaction
     await dispatch(createTransaction({
       ...formData,
       returnDate: null,
@@ -58,12 +77,24 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ onClose }) => {
       requestedBy: 'admin',
     }));
 
+    // Giảm số lượng sách có sẵn
     await dispatch(updateBook({
       id: formData.bookId,
       updates: { availableQuantity: book.availableQuantity - 1 }
     }));
 
-    dispatch(fetchTransactions());
+    // Cập nhật current_borrowing cho bạn đọc
+    try {
+      await dispatch(updateUser({
+        id: formData.readerId,
+        updates: { currentBorrowing: currentBorrowingCount + 1 }
+      })).unwrap();
+    } catch (error) {
+      console.error('Error updating current_borrowing:', error);
+    }
+
+    await dispatch(fetchTransactions());
+    await dispatch(fetchUsers());
     alert('Cho mượn sách thành công!');
     onClose();
   };
@@ -86,11 +117,21 @@ const BorrowForm: React.FC<BorrowFormProps> = ({ onClose }) => {
               className="select-large"
             >
               <option value="">-- Chọn bạn đọc --</option>
-              {readers.map(reader => (
-                <option key={reader.id} value={reader.id}>
-                  {reader.fullName} - {reader.email}
-                </option>
-              ))}
+              {readers.map(reader => {
+                const borrowingCount = transactions.filter(
+                  t => t.readerId === reader.id && t.status !== 'returned' && t.status !== 'pending'
+                ).length;
+                const canBorrow = borrowingCount < reader.quota;
+                return (
+                  <option 
+                    key={reader.id} 
+                    value={reader.id}
+                    disabled={!canBorrow}
+                  >
+                    {reader.fullName} - {reader.email} (Đang mượn: {borrowingCount}/{reader.quota})
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className="form-group">
